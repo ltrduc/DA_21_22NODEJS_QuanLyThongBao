@@ -92,8 +92,8 @@ router.delete('/accounts/:id', async (req, res, next) => {
 // ---------------------------
 const checkRooms = [
     check('rooms')
-        .exists().withMessage('Chưa có tên phòng ban, tên phòng ban cần được gửi với key là rooms!')
-        .notEmpty().withMessage('Vui lòng nhập tên phòng ban!'),
+        .exists().withMessage('Chưa có tên phòng/khoa, tên phòng/khoa cần được gửi với key là rooms!')
+        .notEmpty().withMessage('Vui lòng nhập tên phòng/khoa!'),
     check('description')
         .exists().withMessage('Chưa có mô tả, mô tả cần được gửi với key là description!')
         .notEmpty().withMessage('Vui lòng nhập mô tả!'),
@@ -128,9 +128,9 @@ router.post('/rooms', checkRooms, async (req, res, next) => {
             if (room === null) {
                 let data = { rooms: rooms, description: description };
                 let result = await RoomsModel.create(data);
-                return res.json({ code: 0, message: 'Thêm phòng ban thành công!', result });
+                return res.json({ code: 0, message: 'Thêm phòng/khoa thành công!', result });
             } else {
-                return res.json({ code: 2, message: 'Phòng ban đã tồn tại trước đó!' });
+                return res.json({ code: 2, message: 'Phòng/khoa đã tồn tại trước đó!' });
             }
         } catch (error) {
             return res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
@@ -158,7 +158,7 @@ router.put("/rooms/:id", async (req, res, next) => {
 router.delete('/rooms/:id', async (req, res, next) => {
     try {
         let result = await RoomsModel.deleteOne({ _id: req.params.id }).exec();
-        res.json({ code: 0, message: 'Xóa phòng ban thành công!', result });
+        res.json({ code: 0, message: 'Xóa phòng/khoa thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
     }
