@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Phòng ban - Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="/assets/dist/css/adminx.css" media="screen" />
+</head>
+
+<body>
+    <div class="adminx-container">
+        <!-- Header -->
+        <%- include('./partials/header'); %>
+        <!-- Menu -->
+        <%- include('./partials/menu'); %>
+
+        <!-- adminx-content-aside -->
+        <div class="adminx-content">
+            <div class="adminx-main-content">
+                <div class="container-fluid">
+                    <!-- BreadCrumb -->
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb adminx-page-breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Quản lý phòng ban</li>
+                        </ol>
+                    </nav>
+                    <div class="pb-3">
+                        <h4>Danh sách phòng ban</h4>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <button class="btn btn-sm btn-labeled btn-outline-success" type="button" data-toggle="modal"
+                                data-target="#createRooms" data-whatever="createRooms">
+                                <span class="btn-label">
+                                    <span class="oi oi-plus" aria-hidden="true"></span>
+                                </span>
+                                <span class="btn-text">
+                                    Thêm phòng ban
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Danh sách tài khoản -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-grid">
+                                <div class="table-responsive-md">
+                                    <table class="table table-hover mb-0" data-table>
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th style="width: 4%;" scope="col" class="text-center">
+                                                    <a href="" onclick="return confirm('Bạn có chắc muốn xóa?');">
+                                                        <span class="oi oi-trash" aria-hidden="true"></span>
+                                                    </a>
+                                                </th>
+                                                <th style="width: 5%;" scope="col">STT</th>
+                                                <th style="width: 20%;" scope="col">Tên phòng ban</th>
+                                                <th style="width: 40%;" scope="col">Mô tả</th>
+                                                <th style="width: 15%;" scope="col">Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row" class="text-center"> <input type="checkbox"></th>
+                                                <td>1</td>
+                                                <td>Tài chính - Kế toán</td>
+                                                <td>
+                                                    <p class="text-justify">
+                                                        Phòng Tài chính kế toán Tổng công ty có chức năng tham mưu, giúp
+                                                        việc Hội đồng thành viên, Tổng giám đốc Tổng công ty trong các
+                                                        lĩnh vực về công tác tài chính, kế toán; công tác quản lý vốn,
+                                                        tài sản; công tác kiểm tra, kiểm soát nội bộ; công tác quản lý
+                                                        chi phí và phân tích hoạt động kinh tế.
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-labeled btn-outline-primary"
+                                                        type="button" data-toggle="modal" data-target="#editRooms"
+                                                        data-whatever="editRooms">
+                                                        <span class="btn-label">
+                                                            <span class="oi oi-brush" aria-hidden="true"></span>
+                                                        </span>
+                                                        <span class="btn-text">Sửa</span>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-labeled btn-outline-danger"
+                                                        type="button" data-toggle="modal" data-target="#deleteRooms"
+                                                        data-whatever="deleteRooms">
+                                                        <span class="btn-label">
+                                                            <span class="oi oi-trash" aria-hidden="true"></span>
+                                                        </span>
+                                                        <span class="btn-text">Xóa</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- modal thêm tài khoản -->
+                    <div class="modal fade" id="createRooms" tabindex="-1" role="dialog"
+                        aria-labelledby="createRoomsLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createRoomsLabel">TẠO TÀI KHOẢN</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="name" class="col-form-label">Họ và Tên:</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-form-label">Địa chỉ Email:</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                        data-dismiss="modal">Thoát</button>
+                                    <button type="button" class="btn btn-sm btn-success">Tạo tài khoản</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- modal xóa tài khoản -->
+                    <div class="modal fade" id="deleteRooms" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteRoomsLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">XÓA TÀI KHOẢN</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bạn có chắc muốn xóa tài khoản <strong>letriduc@tdtu.edu.vn</strong>.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                        data-dismiss="modal">Thoát</button>
+                                    <button type="button" class="btn btn-sm btn-danger">Xóa tài khoản</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- modal thêm tài khoản -->
+                    <div class="modal fade" id="editRooms" tabindex="-1" role="dialog" aria-labelledby="editRoomsLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editRoomsLabel">CHỈNH SỬA TÀI KHOẢN</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="name" class="col-form-label">Họ và Tên:</label>
+                                        <input type="text" class="form-control" id="name" value="Lê Trí Đức">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-form-label">Địa chỉ Email:</label>
+                                        <input type="email" class="form-control" id="email"
+                                            value="letriduc@tdtu.edu.vn">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                        data-dismiss="modal">Thoát</button>
+                                    <button type="button" class="btn btn-sm btn-primary">Chỉnh sửa</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="/assets/dist/js/vendor.js"></script>
+    <script src="/assets/dist/js/adminx.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('[data-table]').DataTable({
+                "columns": [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    { "orderable": false }
+                ]
+            });
+        });
+    </script>
+</body>
+
+</html>
