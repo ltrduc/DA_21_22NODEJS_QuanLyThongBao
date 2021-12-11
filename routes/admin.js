@@ -6,7 +6,7 @@ const AccountsModel = require('../models/AccountsModel');
 const RoomsModel = require('../models/RoomsModel');
 
 // ---------------------------
-// ------/admin------
+// ---------/admin------------
 // ---------------------------
 router.get('/', function (req, res, next) {
     res.json('Trang admin');
