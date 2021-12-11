@@ -5,6 +5,9 @@ const router = express.Router();
 const AccountsModel = require('../models/AccountsModel');
 const RoomsModel = require('../models/RoomsModel');
 
+// ---------------------------
+// ------/admin------
+// ---------------------------
 router.get('/', function (req, res, next) {
     res.json('Trang admin');
 });
