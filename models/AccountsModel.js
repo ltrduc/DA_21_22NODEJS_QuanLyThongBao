@@ -7,7 +7,7 @@ const accounts = new mongoose.Schema({
     rooms: String,
     image: String,
     role: Number
-}, { collection: 'accounts' });
+}, { collection: 'accounts', versionKey: false });
 
 const AccountsModel = mongoose.model('accounts', accounts);
 
