@@ -3,18 +3,14 @@ const { check, validationResult } = require('express-validator')
 const router = express.Router();
 
 const AccountsModel = require('../models/AccountsModel');
-const RoomsModel = require('../models/RoomsModel');
+const DepartmentsModel = require('../models/DepartmentsModel');
 
-// ---------------------------
-// ---------/admin------------
-// ---------------------------
+// link: /admin
 router.get('/', function (req, res, next) {
-    res.json('Trang admin');
+    res.json('Trang chủ quản trị viên');
 });
 
-// ---------------------------
-// ------/admin/accounts------
-// ---------------------------
+// link : /admin/accounts
 const checkAccount = [
     check('name')
         .exists().withMessage('Chưa có tên người dùng, tên người dùng cần được gửi với key là name!')
@@ -23,6 +19,9 @@ const checkAccount = [
         .exists().withMessage('Chưa có địa chỉ Email, Email cần được gửi với key là email!')
         .notEmpty().withMessage('Vui lòng nhập địa chỉ Email!')
         .isEmail().withMessage('Địa chỉ Email không hợp lệ!'),
+    check('department')
+        .exists().withMessage('Chưa có phòng/khoa, phòng/khoa cần được gửi với key là department!')
+        .notEmpty().withMessage('Vui lòng nhập phòng/khoa!'),
 ]
 
 router.get('/accounts', async (req, res, next) => {
@@ -45,14 +44,14 @@ router.get('/accounts/:id', async (req, res, next) => {
 
 router.post('/accounts', checkAccount, async (req, res, next) => {
     let result = validationResult(req);
-    let { name, email } = req.body;
+    let { name, email, department } = req.body;
     let message;
 
     if (result.errors.length === 0) {
         try {
             let account = await AccountsModel.findOne({ email: email }).exec();
             if (account === null) {
-                let data = { email: email, password: email, name: name, rooms: '', image: '', role: 1 };
+                let data = { email: email, password: email, name: name, image: '', role: 1, department: department, post: 0 };
                 let result = await AccountsModel.create(data);
                 return res.json({ code: 0, message: 'Thêm tài khoản thành công!', result });
             } else {
@@ -90,47 +89,45 @@ router.delete('/accounts/:id', async (req, res, next) => {
     }
 });
 
-// ---------------------------
-// -------/admin/rooms--------
-// ---------------------------
-const checkRooms = [
-    check('rooms')
-        .exists().withMessage('Chưa có tên phòng/khoa, tên phòng/khoa cần được gửi với key là rooms!')
+// link: admin/departments
+const checkDepartment = [
+    check('department')
+        .exists().withMessage('Chưa có phòng/khoa, phòng/khoa cần được gửi với key là department!')
         .notEmpty().withMessage('Vui lòng nhập tên phòng/khoa!'),
     check('description')
         .exists().withMessage('Chưa có mô tả, mô tả cần được gửi với key là description!')
         .notEmpty().withMessage('Vui lòng nhập mô tả!'),
 ]
 
-router.get('/rooms', async (req, res, next) => {
+router.get('/departments', async (req, res, next) => {
     try {
-        let result = await RoomsModel.find().exec();
+        let result = await DepartmentsModel.find().exec();
         res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
     }
 });
 
-router.get('/rooms/:id', async (req, res, next) => {
+router.get('/departments/:id', async (req, res, next) => {
     try {
-        let result = await RoomsModel.findById(req.params.id).exec();
+        let result = await DepartmentsModel.findById(req.params.id).exec();
         res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
     }
 });
 
-router.post('/rooms', checkRooms, async (req, res, next) => {
+router.post('/departments', checkDepartment, async (req, res, next) => {
     let result = validationResult(req);
-    let { rooms, description } = req.body;
+    let { department, description } = req.body;
     let message;
 
     if (result.errors.length === 0) {
         try {
-            let room = await RoomsModel.findOne({ rooms: rooms }).exec();
+            let room = await DepartmentsModel.findOne({ department: department }).exec();
             if (room === null) {
-                let data = { rooms: rooms, description: description };
-                let result = await RoomsModel.create(data);
+                let data = { department: department, description: description };
+                let result = await DepartmentsModel.create(data);
                 return res.json({ code: 0, message: 'Thêm phòng/khoa thành công!', result });
             } else {
                 return res.json({ code: 2, message: 'Phòng/khoa đã tồn tại trước đó!' });
@@ -146,21 +143,21 @@ router.post('/rooms', checkRooms, async (req, res, next) => {
         req.flash('error', message);
         break;
     }
-    res.json({ code: 2, message, rooms, description });
+    res.json({ code: 2, message, department, description });
 });
 
-router.put("/rooms/:id", async (req, res, next) => {
+router.put("/departments/:id", async (req, res, next) => {
     try {
-        var result = await RoomsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
+        var result = await DepartmentsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
         res.json({ code: 0, message: 'Cập nhật dữ liệu thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
     }
 });
 
-router.delete('/rooms/:id', async (req, res, next) => {
+router.delete('/departments/:id', async (req, res, next) => {
     try {
-        let result = await RoomsModel.deleteOne({ _id: req.params.id }).exec();
+        let result = await DepartmentsModel.deleteOne({ _id: req.params.id }).exec();
         res.json({ code: 0, message: 'Xóa phòng/khoa thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
