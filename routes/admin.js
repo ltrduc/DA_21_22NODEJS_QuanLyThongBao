@@ -51,7 +51,10 @@ router.post('/accounts', checkAccount, async (req, res, next) => {
         try {
             let account = await AccountsModel.findOne({ email: email }).exec();
             if (account === null) {
-                let data = { email: email, password: email, name: name, image: '', role: 1, department: department, post: 0 };
+                let data = {
+                    email: email, password: email, name: name, image: '',
+                    role: 1, department: department, post: 0,
+                };
                 let result = await AccountsModel.create(data);
                 return res.json({ code: 0, message: 'Thêm tài khoản thành công!', result });
             } else {
@@ -73,7 +76,7 @@ router.post('/accounts', checkAccount, async (req, res, next) => {
 
 router.put("/accounts/:id", async (req, res, next) => {
     try {
-        var result = await AccountsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
+        let result = await AccountsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
         res.json({ code: 0, message: 'Cập nhật dữ liệu thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
@@ -124,8 +127,8 @@ router.post('/departments', checkDepartment, async (req, res, next) => {
 
     if (result.errors.length === 0) {
         try {
-            let room = await DepartmentsModel.findOne({ department: department }).exec();
-            if (room === null) {
+            let descriptions = await DepartmentsModel.findOne({ department: department }).exec();
+            if (descriptions === null) {
                 let data = { department: department, description: description };
                 let result = await DepartmentsModel.create(data);
                 return res.json({ code: 0, message: 'Thêm phòng/khoa thành công!', result });
@@ -148,7 +151,7 @@ router.post('/departments', checkDepartment, async (req, res, next) => {
 
 router.put("/departments/:id", async (req, res, next) => {
     try {
-        var result = await DepartmentsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
+        let result = await DepartmentsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
         res.json({ code: 0, message: 'Cập nhật dữ liệu thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
