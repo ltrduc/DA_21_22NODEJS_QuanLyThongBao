@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost/notifition');
+mongoose.connect('mongodb://localhost/notification ');
 // aquire the connection (to check if it is successful)
 const db = mongoose.connection;
 // error

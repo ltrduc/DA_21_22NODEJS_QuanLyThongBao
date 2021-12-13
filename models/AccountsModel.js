@@ -8,6 +8,7 @@ const accounts = new mongoose.Schema({
     role: Number,
     department: mongoose.Schema.ObjectId,
     post: Number,
+    created_at: { type: Date, default: Date.now },
 }, { collection: 'accounts', versionKey: false });
 
 const AccountsModel = mongoose.model('accounts', accounts);
