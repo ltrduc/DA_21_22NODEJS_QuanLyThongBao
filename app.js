@@ -11,7 +11,6 @@ const db = require('./config/mongoose');
 
 // Router
 const indexRouter = require('./routes/index');
-const facultyRouter = require('./routes/faculty');
 const adminRouter = require('./routes/admin');
 
 const app = express();
@@ -34,7 +33,6 @@ app.use(flash())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/faculty', facultyRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

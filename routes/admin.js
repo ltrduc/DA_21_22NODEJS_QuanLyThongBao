@@ -4,13 +4,8 @@ const router = express.Router();
 
 const AccountsModel = require('../models/AccountsModel');
 const DepartmentsModel = require('../models/DepartmentsModel');
+const NofiticationsModel = require('../models/NofiticationsModel');
 
-// link: /admin
-router.get('/', async (req, res, next) => {
-    res.json({ code: 0, message: 'Tải thành công trang thông báo admin!' });
-});
-
-// link : /admin/accounts
 const checkAccount = [
     check('name')
         .exists().withMessage('Chưa có tên người dùng, tên người dùng cần được gửi với key là name!')
@@ -24,7 +19,34 @@ const checkAccount = [
         .notEmpty().withMessage('Vui lòng chọn phòng/khoa!'),
 ]
 
-router.get('/accounts', async (req, res, next) => {
+const checkDepartment = [
+    check('department')
+        .exists().withMessage('Chưa có phòng/khoa, phòng/khoa cần được gửi với key là department!')
+        .notEmpty().withMessage('Vui lòng nhập tên phòng/khoa!'),
+    check('description')
+        .exists().withMessage('Chưa có mô tả, mô tả cần được gửi với key là description!')
+        .notEmpty().withMessage('Vui lòng nhập mô tả!'),
+]
+
+const checkNotification = [
+    check('title')
+        .exists().withMessage('Chưa có tiêu đề bài viết, tiêu đề cần được gửi với key là title!')
+        .notEmpty().withMessage('Vui lòng nhập tiêu đề bài viết!'),
+    check('content')
+        .exists().withMessage('Chưa có nội dung bài viết, nội dung cần được gửi với key là content!')
+        .notEmpty().withMessage('Vui lòng nhập nội dung bài viết!'),
+    check('department')
+        .exists().withMessage('Chưa có phòng/khoa, phòng/khoa cần được gửi với key là department!')
+        .notEmpty().withMessage('Vui lòng nhập phòng/khoa!'),
+]
+
+// link: /admin
+router.get('/', async (req, res, next) => {
+    res.json({ code: 0, message: 'Tải thành công trang thông báo!' });
+});
+
+// link : /admin/accounts
+router.get('/account', async (req, res, next) => {
     try {
         let result = await AccountsModel.find().exec();
         res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
@@ -33,7 +55,7 @@ router.get('/accounts', async (req, res, next) => {
     }
 });
 
-router.get('/accounts/:id', async (req, res, next) => {
+router.get('/account/:id', async (req, res, next) => {
     try {
         let result = await AccountsModel.findById(req.params.id).exec();
         res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
@@ -42,7 +64,7 @@ router.get('/accounts/:id', async (req, res, next) => {
     }
 });
 
-router.post('/accounts', checkAccount, async (req, res, next) => {
+router.post('/account', checkAccount, async (req, res, next) => {
     try {
         let result = validationResult(req);
         if (result.errors.length === 0) {
@@ -64,7 +86,7 @@ router.post('/accounts', checkAccount, async (req, res, next) => {
     }
 });
 
-router.put("/accounts/:id", async (req, res, next) => {
+router.put("/account/:id", async (req, res, next) => {
     try {
         let result = await AccountsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
         res.json({ code: 0, message: 'Cập nhật dữ liệu thành công!', result });
@@ -73,7 +95,7 @@ router.put("/accounts/:id", async (req, res, next) => {
     }
 });
 
-router.delete('/accounts/:id', async (req, res, next) => {
+router.delete('/account/:id', async (req, res, next) => {
     try {
         let result = await AccountsModel.deleteOne({ _id: req.params.id }).exec();
         res.json({ code: 0, message: 'Xóa tài khoản thành công!', result });
@@ -83,16 +105,7 @@ router.delete('/accounts/:id', async (req, res, next) => {
 });
 
 // link: admin/departments
-const checkDepartment = [
-    check('department')
-        .exists().withMessage('Chưa có phòng/khoa, phòng/khoa cần được gửi với key là department!')
-        .notEmpty().withMessage('Vui lòng nhập tên phòng/khoa!'),
-    check('description')
-        .exists().withMessage('Chưa có mô tả, mô tả cần được gửi với key là description!')
-        .notEmpty().withMessage('Vui lòng nhập mô tả!'),
-]
-
-router.get('/departments', async (req, res, next) => {
+router.get('/department', async (req, res, next) => {
     try {
         let result = await DepartmentsModel.find().exec();
         res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
@@ -101,7 +114,7 @@ router.get('/departments', async (req, res, next) => {
     }
 });
 
-router.get('/departments/:id', async (req, res, next) => {
+router.get('/department/:id', async (req, res, next) => {
     try {
         let result = await DepartmentsModel.findById(req.params.id).exec();
         res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
@@ -110,7 +123,7 @@ router.get('/departments/:id', async (req, res, next) => {
     }
 });
 
-router.post('/departments', checkDepartment, async (req, res, next) => {
+router.post('/department', checkDepartment, async (req, res, next) => {
     try {
         let result = validationResult(req);
         if (result.errors.length === 0) {
@@ -131,7 +144,7 @@ router.post('/departments', checkDepartment, async (req, res, next) => {
     }
 });
 
-router.put("/departments/:id", async (req, res, next) => {
+router.put("/department/:id", async (req, res, next) => {
     try {
         let result = await DepartmentsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
         res.json({ code: 0, message: 'Cập nhật dữ liệu thành công!', result });
@@ -140,10 +153,64 @@ router.put("/departments/:id", async (req, res, next) => {
     }
 });
 
-router.delete('/departments/:id', async (req, res, next) => {
+router.delete('/department/:id', async (req, res, next) => {
     try {
         let result = await DepartmentsModel.deleteOne({ _id: req.params.id }).exec();
         res.json({ code: 0, message: 'Xóa phòng/khoa thành công!', result });
+    } catch (error) {
+        res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
+    }
+});
+
+// link: admin/nofitications
+router.get('/nofitication', async (req, res, next) => {
+    try {
+        let result = await NofiticationsModel.find().exec();
+        res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
+    } catch (error) {
+        res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
+    }
+});
+
+router.get('/nofitication/:id', async (req, res, next) => {
+    try {
+        let result = await NofiticationsModel.findById(req.params.id).exec();
+        res.json({ code: 0, message: 'Tải dữ liệu thành công!', result });
+    } catch (error) {
+        res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
+    }
+});
+
+router.post('/nofitication', checkNotification, async (req, res, next) => {
+    try {
+        let result = validationResult(req);
+        if (result.errors.length === 0) {
+            let { title, content, department } = req.body;
+            let result = await NofiticationsModel.create({ title, content, department });
+            return res.json({ code: 0, message: 'Thêm thông báo thành công!', result });
+        }
+        result = result.mapped();
+        for (fields in result) {
+            return res.json({ code: 2, message: result[fields].msg });
+        }
+    } catch (error) {
+        return res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
+    }
+});
+
+router.put("/nofitications/:id", async (req, res, next) => {
+    try {
+        let result = await NofiticationsModel.findOneAndUpdate({ _id: req.params.id }, req.body)
+        res.json({ code: 0, message: 'Cập nhật dữ liệu thành công!', result });
+    } catch (error) {
+        res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
+    }
+});
+
+router.delete('/nofitication/:id', async (req, res, next) => {
+    try {
+        let result = await NofiticationsModel.deleteOne({ _id: req.params.id }).exec();
+        res.json({ code: 0, message: 'Xóa thông báo thành công!', result });
     } catch (error) {
         res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
     }
