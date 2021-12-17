@@ -5,7 +5,7 @@ const router = express.Router();
 const NofiticationsModel = require('../models/NofiticationsModel');
 
 router.get('/', function (req, res, next) {
-    res.json('Trang thông báo giảng viên, viên chức');
+    res.json({ code: 0, message: 'Tải thành công trang thông báo phòng/khoa!' });
 });
 
 const checkNotification = [
@@ -39,27 +39,20 @@ router.get('/nofitications/:id', async (req, res, next) => {
 });
 
 router.post('/nofitications', checkNotification, async (req, res, next) => {
-    let result = validationResult(req);
-    let { title, content, department } = req.body;
-    let message;
-
-    if (result.errors.length === 0) {
-        try {
-            let data = { title: title, content: content, department: department };
-            let result = await NofiticationsModel.create(data);
+    try {
+        let result = validationResult(req);
+        if (result.errors.length === 0) {
+            let { title, content, department } = req.body;
+            let result = await NofiticationsModel.create({ title, content, department });
             return res.json({ code: 0, message: 'Thêm thông báo thành công!', result });
-        } catch (error) {
-            return res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
         }
+        result = result.mapped();
+        for (fields in result) {
+            return res.json({ code: 2, message: result[fields].msg });
+        }
+    } catch (error) {
+        return res.status(500).json({ code: 1, message: 'Lỗi kết nối tới database!' });
     }
-
-    result = result.mapped();
-    for (fields in result) {
-        message = result[fields].msg
-        req.flash('error', message);
-        break;
-    }
-    res.json({ code: 2, message, title, content, department });
 });
 
 router.put("/nofitications/:id", async (req, res, next) => {
