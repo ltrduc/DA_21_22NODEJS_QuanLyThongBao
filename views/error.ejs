@@ -10,16 +10,16 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/error.css">
-    <title>Lỗi</title>
+    <title>Error</title>
 </head>
 
 <body>
-    <div class="error-content">
+    <div class="error-content mt-4">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 ">
+                <div class="col-md-12">
                     <div class="error-text">
-                        <h3 class="error"><%= error.status %> Error</h3>
+                        <h3 class="error">Thông báo</h3>
                         <div class="im-sheep">
                             <div class="top">
                                 <div class="body"></div>
@@ -37,8 +37,8 @@
                                 <div class="im-leg"></div>
                             </div>
                         </div>
-                        <h4><%= message %></h4>
-                        <p><%= error.stack %></p>
+                        <h4>Lỗi Đăng nhập</h4>
+                        <p><%= message%></p>
                         <a href="/" class="btn btn-primary btn-round">Quay lại trang chủ</a>
                     </div>
                 </div>

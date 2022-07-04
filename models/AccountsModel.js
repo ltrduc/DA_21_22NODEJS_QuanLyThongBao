@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
 
 const accounts = new mongoose.Schema({
-    email: String,
+    googleId: String,
+    email: { type: String, unique: true},
+    class: String,
     password: String,
     name: String,
-    image: String,
+    image: { type: String, default: 'uploads/avatar/avatar_image.png'},
     role: Number,
-    department: mongoose.Schema.ObjectId,
-    post: Number,
+    department: {
+        type:mongoose.Schema.ObjectId,
+        ref: 'departments'
+    },
+    post: Array,
     created_at: { type: Date, default: Date.now },
 }, { collection: 'accounts', versionKey: false });
 

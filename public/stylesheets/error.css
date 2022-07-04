@@ -1,12 +1,11 @@
-h4 {
+h4{
     color: #253858;
     margin-bottom: .8rem;
     position: relative;
     font-family: 'Raleway', sans-serif;
     font-size: 1.5rem;
 }
-
-p {
+p{
     margin-top: 0;
     margin-bottom: 1rem;
     display: block;
@@ -15,23 +14,18 @@ p {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     color: rgb(113, 120, 126);
-    text-align: left;
-    font-size: 13px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Lato', sans-serif;
 }
-
 .btn-primary:hover {
     color: #fff;
     background-color: #0069d9;
     border-color: #0062cc;
 }
-
 .btn-primary {
     color: #fff;
     background-color: #0069d9;
     border-color: #0062cc;
 }
-
 .btn-round {
     border-radius: 30px !important;
     text-decoration: none;
@@ -42,9 +36,8 @@ p {
     font-weight: 600;
     padding: 9px 25px;
     border-width: 2px;
-    box-shadow: 0 3px 8px 0 rgba(41, 49, 89, .15), inset 0 0 0 1px hsla(0, 0%, 100%, .1);
+    box-shadow: 0 3px 8px 0 rgba(41,49,89,.15), inset 0 0 0 1px hsla(0,0%,100%,.1);
 }
-
 .btn {
     display: inline-block;
     font-weight: 400;
@@ -60,73 +53,58 @@ p {
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .25rem;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
 }
-
 /*[404 error page]
 --------------------------*/
 .error-content {
     padding: 0 0 70px;
 }
-
-.error-text {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+.error-text{
     text-align: center;
 }
-
 .error {
     font-size: 100px;
     font-weight: 100;
 }
-
 @keyframes bob {
     0% {
         top: 0;
     }
-
     50% {
         top: 0.2em;
     }
 }
-
 .im-sheep {
     display: inline-block;
     position: relative;
     font-size: 1em;
     margin-bottom: 70px;
 }
-
 .im-sheep * {
     transition: transform 0.3s;
 }
-
 .im-sheep .top {
     position: relative;
     top: 0;
     animation: bob 1s infinite;
 }
-
 .im-sheep:hover .head {
     transform: rotate(0deg);
 }
-
 .im-sheep:hover .head .im-eye {
     width: 1.25em;
     height: 1.25em;
 }
-
 .im-sheep:hover .head .im-eye:before {
     right: 30%;
 }
-
 .im-sheep:hover .top {
     animation-play-state: paused;
 }
-
 .im-sheep .head {
     display: inline-block;
     width: 5em;
@@ -138,7 +116,6 @@ p {
     top: 1em;
     transform: rotate(30deg);
 }
-
 .im-sheep .head:before {
     content: '';
     display: inline-block;
@@ -150,12 +127,9 @@ p {
     right: -10%;
     border-radius: 50% 40%;
 }
-
-.im-sheep .head:hover .im-ear.one,
-.im-sheep .head:hover .im-ear.two {
+.im-sheep .head:hover .im-ear.one, .im-sheep .head:hover .im-ear.two {
     transform: rotate(0deg);
 }
-
 .im-sheep .head .im-eye {
     display: inline-block;
     width: 1em;
@@ -165,7 +139,6 @@ p {
     position: absolute;
     overflow: hidden;
 }
-
 .im-sheep .head .im-eye:before {
     content: '';
     display: inline-block;
@@ -178,17 +151,14 @@ p {
     bottom: 10%;
     transition: all 0.3s;
 }
-
 .im-sheep .head .im-eye.one {
     right: -2%;
     top: 1.7em;
 }
-
 .im-sheep .head .im-eye.two {
     right: 2.5em;
     top: 1.7em;
 }
-
 .im-sheep .head .im-ear {
     background: #253858;
     width: 50%;
@@ -196,19 +166,16 @@ p {
     border-radius: 100%;
     position: absolute;
 }
-
 .im-sheep .head .im-ear.one {
     left: -10%;
     top: 5%;
     transform: rotate(-30deg);
 }
-
 .im-sheep .head .im-ear.two {
     top: 2%;
     right: -5%;
     transform: rotate(20deg);
 }
-
 .im-sheep .body {
     display: inline-block;
     width: 7em;
@@ -219,7 +186,6 @@ p {
     vertical-align: middle;
     margin-right: -3em;
 }
-
 .im-sheep .im-legs {
     display: inline-block;
     position: absolute;
@@ -227,7 +193,6 @@ p {
     left: 10%;
     z-index: -1;
 }
-
 .im-sheep .im-legs .im-leg {
     display: inline-block;
     background: #141214;
@@ -235,7 +200,6 @@ p {
     height: 2.5em;
     margin: 0.2em;
 }
-
 .im-sheep::before {
     left: 0;
     content: '';
